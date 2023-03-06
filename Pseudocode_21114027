@@ -1,0 +1,30 @@
+@Reader's Process
+
+while(wfwc!=0);
+wait(mutex);
+readcn++;
+if(readcn==1) wait(wrt);
+signal(mutex);
+
+//reading
+
+wait(mutex);
+readcn--;
+if(readcn==0) signal(wrt);
+signal(mutex);
+
+
+@Writer's Process
+
+while(readcn!=0);
+wait(mutexw);
+wfwc++;
+signal(mutexw);
+
+wait(wrt);
+//writing
+signal(wrt);
+
+wait(mutexw);
+wfwc--;
+signal(mutexw);

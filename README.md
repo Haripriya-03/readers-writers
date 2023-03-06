@@ -5,9 +5,7 @@ In this new solution, we will ensure that the reading and writing processes are 
 # writers
    If a writing process is in it's queue waiting for the readcn to become zero, the other reading process which arrives is not going to start because we initiate the reading process by ensuring that no writing process is waiting in the writing queue. We achieve this by maintaining a semaphore named wfwc(wait for writing count).
 # Example
-       Now we consider an example and ensure the correct working of this algorithm.
-W1 W2 R1 R2 W3
-
+       Now we consider an example and ensure the correct working of this algorithm. W1 W2 R1 R2 W3
        Initially the readcn and wfwc are both initialized to zero.
        Since the readcn is zero initially, both the writer's process increment the wfwc and perform the writing processes one after the other by using wrt semaphore. In this time, R1 and R2 which are arrived will not be started because first step in their execution is checking whether wfwc ==0. Once W1 and W2 complete their execution and wfwc is made zero and the reading processes R1 and R2 are initiated. 
        R1 and R2 increment the readcn ad perform the reading process simaltaneously(if needed) and after that decrement the readcn.
